@@ -39,13 +39,21 @@
         $create.addEventListener('submit', function (event) {
             event.preventDefault();
 
-            renderTask({
+            var data;
+            renderTask(data = {
                 task: $task.value
             });
 
             var xhr = new XMLHttpRequest;
             xhr.open('PUT', '/tasks', true);
             xhr.send(new FormData($create));
+
+            xhr.addEventListener('load', function () {
+                var result = JSON.parse(xhr.responseText);
+
+                data.id = result.id;
+                data.complete = result.complete;
+            });
 
             $task.value = '';
         });
