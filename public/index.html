@@ -18,7 +18,7 @@
 
         function renderTask(data) {
             var $li = document.createElement('li');
-            $li.innerHTML = '<input type="checkbox"> ' + data.task;
+            $li.innerHTML = '<input type="checkbox"' + (data.checked ? ' checked' : '') +  '> ' + data.task;
             $tasks.appendChild($li);
 
             return $li;
@@ -48,6 +48,8 @@
 
             $task.value = '';
         });
+
+        loadTasks();
     </script>
 </body>
 </html>
