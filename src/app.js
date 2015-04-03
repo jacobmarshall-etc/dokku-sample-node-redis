@@ -56,7 +56,7 @@ app.put('/tasks', function (req, res) {
 });
 
 app.get('/tasks', function (req, res) {
-    tasks(function (data) {
+    tasks(function (err, data) {
         res.send(data);
     });
 });
