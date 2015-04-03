@@ -25,7 +25,7 @@ app.put('/tasks', function (req, res) {
     };
 
     queue.rpush(TASKS_KEY, JSON.stringify(task), function (err, result) {
-        res.send(result);
+        res.send({ result: result });
     });
 });
 

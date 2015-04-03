@@ -16,12 +16,26 @@
             $task = document.getElementById('task'),
             $create = document.getElementById('task-create');
 
+        function renderTask(data) {
+            var $li = document.createElement('li');
+            $li.innerHTML = '<input type="checkbox"> ' + data.task;
+            $tasks.appendChild($li);
+
+            return $li;
+        }
+
         $create.addEventListener('submit', function (event) {
             event.preventDefault();
+
+            $task = renderTask({
+                task: $task.value
+            });
 
             var xhr = new XMLHttpRequest;
             xhr.open('PUT', '/tasks', true);
             xhr.send(new FormData($create));
+
+            $task.value = '';
         });
     </script>
 </body>
