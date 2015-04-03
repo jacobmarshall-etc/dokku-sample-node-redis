@@ -8,7 +8,7 @@ var redis = require('redis'),
     express = require('express'),
     parser = require('body-parser'),
     multer = require('multer'),
-    uuid = require('node-uuid').v4;
+    uuid = require('node-uuid').v4,
     app = express();
 
 app.use(parser.json());
