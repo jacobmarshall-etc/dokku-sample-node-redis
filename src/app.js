@@ -8,6 +8,7 @@ var redis = require('redis'),
     express = require('express'),
     parser = require('body-parser'),
     multer = require('multer'),
+    uuid = require('node-uuid').v4;
     app = express();
 
 app.use(parser.json());
@@ -17,7 +18,11 @@ app.use(multer());
 app.use(express.static(__dirname + '/../public'));
 
 app.put('/tasks', function (req, res) {
-    console.log(req.body);
+    queue.rpush([TASKS_KEY, JSON.stringify({
+        id: uuid(),
+        task: req.body.task,
+        complete: false
+    })]);
 });
 
 app.get('/tasks', function (req, res) {

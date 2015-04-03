@@ -6,6 +6,7 @@
     "express": "^4.12.3",
     "hiredis": "^0.3.0",
     "multer": "^0.1.8",
+    "node-uuid": "^1.4.3",
     "redis": "^0.12.1"
   },
   "engines": {
