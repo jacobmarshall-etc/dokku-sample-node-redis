@@ -27,6 +27,7 @@
         function loadTasks() {
             var xhr = new XMLHttpRequest;
             xhr.open('GET', '/tasks', true);
+            xhr.send();
 
             xhr.addEventListener('load', function () {
                 JSON.parse(xhr.responseText).forEach(function (obj) {
