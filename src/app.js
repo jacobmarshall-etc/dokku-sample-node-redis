@@ -18,16 +18,22 @@ app.use(multer());
 app.use(express.static(__dirname + '/../public'));
 
 app.put('/tasks', function (req, res) {
-    queue.rpush([TASKS_KEY, JSON.stringify({
+    var task = {
         id: uuid(),
         task: req.body.task,
         complete: false
-    })]);
+    };
+
+    queue.rpush(TASKS_KEY, JSON.stringify(task), function (err, result) {
+        res.send(result);
+    });
 });
 
 app.get('/tasks', function (req, res) {
-    queue.lrange([TASKS_KEY, 0, -1], function (err, data) {
-        console.log(err, data);
+    queue.lrange(TASKS_KEY, 0, -1, function (err, data) {
+        res.send(data.map(function (task) {
+            return JSON.parse(task);
+        }));
     });
 });
 
