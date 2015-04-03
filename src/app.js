@@ -1,5 +1,5 @@
 var REDIS_PORT = process.env.REDIS_PORT,
-    REDIS_HOST = process.env.REDIS_HOST,
+    REDIS_HOST = process.env.REDIS_IP,
     WEB_PORT = process.env.PORT,
     TASKS_KEY = 'tasks';
 
