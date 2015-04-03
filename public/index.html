@@ -24,10 +24,21 @@
             return $li;
         }
 
+        function loadTasks() {
+            var xhr = new XMLHttpRequest;
+            xhr.open('GET', '/tasks', true);
+
+            xhr.addEventListener('load', function () {
+                JSON.parse(xhr.responseText).forEach(function (obj) {
+                    renderTask(obj);
+                });
+            });
+        }
+
         $create.addEventListener('submit', function (event) {
             event.preventDefault();
 
-            $task = renderTask({
+            renderTask({
                 task: $task.value
             });
 
