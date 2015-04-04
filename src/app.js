@@ -58,14 +58,15 @@ function remove(id, callback) {
 
 function update(id, data, callback) {
     get(id, function (err, task, index) {
-        console.log('get %s returned %s (error: %s)', id, JSON.stringify(task), err);
-
         if (err) return callback(err);
 
+        console.log(data);
+
         Object.keys(data).forEach(function (key) {
+            console.log('set %s to %s', key, data[key]);
             if (task.hasOwnProperty(key)) { // Prevent data storage
                 task[key] = data[key];
-                console.log('Set task[%s] to %s', key, data[key]);
+                console.log('setting %s to %s', key, data[key]);
             }
         });
 
