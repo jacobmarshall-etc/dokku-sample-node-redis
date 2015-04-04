@@ -60,8 +60,10 @@ function update(id, data, callback) {
     get(id, function (err, task, index) {
         if (err) return callback(err);
 
-        Object.keys(data).forEach(function (key) {
-            if (task.hasOwnProperty(key)) { // Prevent data storage
+        var whitelist = ['task', 'complete'];
+
+        whitelist.forEach(function (key) {
+            if (data.hasOwnProperty(key)) { // Prevent data storage
                 task[key] = data[key];
             }
         });
