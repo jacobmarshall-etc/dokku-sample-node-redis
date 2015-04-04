@@ -90,19 +90,19 @@ app.get('/tasks', function (req, res) {
     });
 });
 
-app.get('/task/:id', function (req, res) {
+app.get('/tasks/:id', function (req, res) {
     get(req.params.id, function (err, task) {
         res.send(err ? { error: err } : task);
     });
 });
 
-app.delete('/task/:id', function (req, res) {
+app.delete('/tasks/:id', function (req, res) {
     remove(req.params.id, function (err) {
         res.send(err ? { error: err } : { result: 'success' });
     });
 });
 
-app.put('/task/:id', function (req, res) {
+app.put('/tasks/:id', function (req, res) {
     update(req.params.id, req.body, function (err, task) {
         res.send(err ? { error: err } : task);
     });

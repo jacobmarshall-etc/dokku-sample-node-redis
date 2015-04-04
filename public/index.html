@@ -51,6 +51,8 @@
             xhr.open('GET', '/tasks', true);
             xhr.send();
 
+            $tasks.innerHTML = '';
+
             xhr.addEventListener('load', function () {
                 JSON.parse(xhr.responseText).forEach(function (obj) {
                     renderTask(obj);
