@@ -58,6 +58,8 @@ function remove(id, callback) {
 
 function update(id, data, callback) {
     get(id, function (err, task, index) {
+        console.log('get %s returned %s (error: %s)', id, JSON.stringify(task), err);
+
         if (err) return callback(err);
 
         Object.keys(data).forEach(function (key) {
