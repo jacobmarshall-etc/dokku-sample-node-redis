@@ -78,6 +78,11 @@ app.use(multer());
 
 app.use(express.static(__dirname + '/../public'));
 
+app.use(function (req, res, next) {
+    console.log(req.url, req.body);
+    next(req, res);
+});
+
 app.post('/tasks', function (req, res) {
     create(req.body.task, function (err, task) {
         res.send(err ? { error: err } : task);
