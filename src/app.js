@@ -60,13 +60,11 @@ function update(id, data, callback) {
     get(id, function (err, task, index) {
         if (err) return callback(err);
 
-        console.log(task);
-
         Object.keys(data).forEach(function (key) {
-            task[key] = data[key];
+            if (task.hasOwnProperty(key)) { // Prevent data storage
+                task[key] = data[key];
+            }
         });
-
-        console.log(task);
 
         queue.lset(TASKS_KEY, index, JSON.stringify(task), function (err) {
             callback(err, task);

@@ -40,7 +40,7 @@
                 xhr.open('PUT', '/tasks/' + data.id, true);
                 xhr.setRequestHeader('Content-Type', 'application/json');
                 xhr.send(JSON.stringify({
-                    checked: $checkbox.checked
+                    complete: $checkbox.checked
                 }));
             });
 
