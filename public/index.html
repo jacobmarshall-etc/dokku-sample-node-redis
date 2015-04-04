@@ -9,9 +9,7 @@
         <button type="submit">Create</button>
     </form>
     <button type="button" id="reload">Reload</button>
-    <ul id="tasks">
-
-    </ul>
+    <ul id="tasks"></ul>
     <script>
         var $tasks = document.getElementById('tasks'),
             $task = document.getElementById('task'),
@@ -29,8 +27,13 @@
             $task.innerText = data.task;
             $task.style.textDecoration = $checkbox.checked ? 'line-through' : '';
 
+            var $delete = document.createElement('button');
+            $delete.type = 'button';
+            $delete.innerText = 'Delete';
+
             $li.appendChild($checkbox);
             $li.appendChild($task);
+            $li.appendChild($delete);
             $tasks.appendChild($li);
 
             $checkbox.addEventListener('change', function () {
@@ -44,6 +47,14 @@
                 }));
             });
 
+            $delete.addEventListener('click', function () {
+                $li.remove();
+
+                var xhr = new XMLHttpRequest;
+                xhr.open('DELETE', '/tasks/' + data.id, true);
+                xhr.send();
+            });
+
             return $li;
         }
 
@@ -52,9 +63,11 @@
             xhr.open('GET', '/tasks', true);
             xhr.send();
 
-            $tasks.innerHTML = '';
+            $tasks.innerHTML = 'Loading...';
 
             xhr.addEventListener('load', function () {
+                $tasks.innerHTML = '';
+
                 JSON.parse(xhr.responseText).forEach(function (obj) {
                     renderTask(obj);
                 });
