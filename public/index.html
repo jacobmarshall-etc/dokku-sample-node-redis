@@ -58,12 +58,12 @@
             return $li;
         }
 
-        function loadTasks(silent) {
+        function loadTasks(verbose) {
             var xhr = new XMLHttpRequest;
             xhr.open('GET', '/tasks', true);
             xhr.send();
 
-            if ( ! silent) {
+            if (verbose) {
                 $tasks.innerHTML = 'Loading...';
             }
 
@@ -104,10 +104,10 @@
             $task.value = '';
         });
 
-        $reload.addEventListener('click', loadTasks, false);
-        setInterval(loadTasks.bind(null, true), 30e3);
+        $reload.addEventListener('click', loadTasks.bind(null, true), false);
+        setInterval(loadTasks.bind(null, false), 30e3);
 
-        loadTasks();
+        loadTasks(true);
     </script>
 </body>
 </html>
