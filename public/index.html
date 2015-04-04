@@ -6,6 +6,12 @@
         *, *:before, *:after {
             box-sizing: border-box;
         }
+        body {
+            font-family: sans-serif;
+            font-size: 14px;
+            color: #333;
+            line-height: 1.23;
+        }
         #tasks {
             list-style: none;
             padding: 0;
@@ -24,14 +30,23 @@
         #tasks li > button[type="button"] {
             float: right;
         }
+        #task-create > input[type="text"] {
+            display: block;
+            width: 100%;
+            line-height: 36px;
+            padding: 0 10px;
+        }
+        #task-create > button {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <form id="task-create">
         <input type="text" name="task" id="task" placeholder="Create a task">
         <button type="submit">Create</button>
+        <button type="button" id="reload">Reload</button>
     </form>
-    <button type="button" id="reload">Reload</button>
     <ul id="tasks"></ul>
     <script>
         var $tasks = document.getElementById('tasks'),
