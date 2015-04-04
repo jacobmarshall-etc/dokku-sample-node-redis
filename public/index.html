@@ -66,10 +66,10 @@
 
             var $delete = document.createElement('button');
             $delete.type = 'button';
-            $delete.innerText = 'Delete';
+            $delete.innerText = $delete.textContent = 'Delete';
 
             var $task = document.createElement('span');
-            $task.innerText = data.task;
+            $task.innerText = $task.textContent = data.task;
             $task.style.textDecoration = $checkbox.checked ? 'line-through' : '';
 
             $li.appendChild($checkbox);
