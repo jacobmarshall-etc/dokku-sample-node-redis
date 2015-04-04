@@ -21,6 +21,9 @@
             position: absolute;
             margin-left: -20px;
         }
+        #tasks li > button[type="button"] {
+            float: right;
+        }
     </style>
 </head>
 <body>
@@ -43,17 +46,17 @@
             $checkbox.type = 'checkbox';
             $checkbox.checked = data.complete;
 
-            var $task = document.createElement('span');
-            $task.innerText = data.task;
-            $task.style.textDecoration = $checkbox.checked ? 'line-through' : '';
-
             var $delete = document.createElement('button');
             $delete.type = 'button';
             $delete.innerText = 'Delete';
 
+            var $task = document.createElement('span');
+            $task.innerText = data.task;
+            $task.style.textDecoration = $checkbox.checked ? 'line-through' : '';
+
             $li.appendChild($checkbox);
-            $li.appendChild($task);
             $li.appendChild($delete);
+            $li.appendChild($task);
             $tasks.appendChild($li);
 
             $checkbox.addEventListener('change', function () {
