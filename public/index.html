@@ -77,6 +77,11 @@
         $create.addEventListener('submit', function (event) {
             event.preventDefault();
 
+            if ($task.value.trim().length === 0) {
+                alert('Please enter a task description...');
+                return;
+            }
+
             var data;
             renderTask(data = {
                 task: $task.value
