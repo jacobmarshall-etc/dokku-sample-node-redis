@@ -18,8 +18,21 @@
 
         function renderTask(data) {
             var $li = document.createElement('li');
-            $li.innerHTML = '<input type="checkbox"' + (data.checked ? ' checked' : '') +  '> ' + data.task;
+
+            var $checkbox = document.createElement('input');
+            $checkbox.type = 'checkbox';
+            $checkbox.checked = data.complete;
+
+            var $task = document.createElement('span');
+            $task.innerText = data.task;
+
+            $li.appendChild($checkbox);
+            $li.appendChild($task);
             $tasks.appendChild($li);
+
+            $checkbox.addEventListener('change', function () {
+                console.log($checkbox);
+            });
 
             return $li;
         }
