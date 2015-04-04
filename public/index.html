@@ -2,6 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <style>
+        *, *:before, *:after {
+            box-sizing: border-box;
+        }
+        #tasks {
+            list-style: none;
+            padding: 0;
+        }
+        #tasks li {
+            padding: 10px 10px 10px 30px;
+            background-color: rgb(255, 252, 182);
+        }
+        #tasks li:not(:last-child) {
+            border-bottom: 1px solid rgba(0, 0, 0, .15);
+        }
+        #tasks li > input[type="checkbox"] {
+            position: absolute;
+            margin-left: -20px;
+        }
+    </style>
 </head>
 <body>
     <form id="task-create">
