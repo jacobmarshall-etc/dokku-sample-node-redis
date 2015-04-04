@@ -27,6 +27,7 @@
 
             var $task = document.createElement('span');
             $task.innerText = data.task;
+            $task.style.textDecoration = $checkbox.checked ? 'line-through' : '';
 
             $li.appendChild($checkbox);
             $li.appendChild($task);
@@ -35,12 +36,11 @@
             $checkbox.addEventListener('change', function () {
                 $task.style.textDecoration = $checkbox.checked ? 'line-through' : '';
 
-                var formData = new FormData;
-                formData.append('complete', $checkbox.checked);
-
                 var xhr = new XMLHttpRequest;
                 xhr.open('PUT', '/tasks/' + data.id, true);
-                xhr.send(formData);
+                xhr.send(JSON.stringify({
+                    checked: $checkbox.checked
+                }));
             });
 
             return $li;
@@ -70,7 +70,7 @@
 
             var xhr = new XMLHttpRequest;
             xhr.open('POST', '/tasks', true);
-            xhr.send(new FormData($create));
+            xhr.send(JSON.stringify(data));
 
             xhr.addEventListener('load', function () {
                 var result = JSON.parse(xhr.responseText);
