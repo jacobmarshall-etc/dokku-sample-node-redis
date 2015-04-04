@@ -80,7 +80,7 @@ app.use(express.static(__dirname + '/../public'));
 
 app.use(function (req, res, next) {
     console.log(req.url, req.body);
-    next(req, res);
+    next();
 });
 
 app.post('/tasks', function (req, res) {
