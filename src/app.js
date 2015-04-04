@@ -63,6 +63,7 @@ function update(id, data, callback) {
         Object.keys(data).forEach(function (key) {
             if (task.hasOwnProperty(key)) { // Prevent data storage
                 task[key] = data[key];
+                console.log('Set task[%s] to %s', key, data[key]);
             }
         });
 
