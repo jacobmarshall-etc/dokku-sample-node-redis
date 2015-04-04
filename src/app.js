@@ -31,14 +31,43 @@ function create(task, callback) {
     });
 }
 
-function remove(id, callback) {
-    tasks(function (data) {
-        data.forEach(function (task) {
-            if (task.id === id) {
-                queue.lrem(TASKS_KEY, 0, JSON.stringify(task), function (err, result) {
-                    callback(err);
-                });
+function get(id, callback) {
+    tasks(function (err, data) {
+        if (err) return callback(err);
+
+        var match, index = -1;
+
+        for (var i = 0; i < data.length && ! match; i++) {
+            if (data[i].id === id) {
+                match = data[i];
+                index = i;
             }
+        }
+
+        callback(null, match, index);
+    });
+}
+
+function remove(id, callback) {
+    get(id, function (err, task) {
+        queue.lrem(TASKS_KEY, 0, JSON.stringify(task), function (err, result) {
+            callback(err);
+        });
+    });
+}
+
+function update(id, data, callback) {
+    get(id, function (err, task, index) {
+        if (err) return callback(err);
+
+        Object.keys(data).forEach(function (key) {
+            if (task.hasOwnProperty(key)) { // Prevent data storage
+                task[key] = data[key];
+            }
+        });
+
+        queue.lset(TASKS_KEY, index, JSON.stringify(task), function (err) {
+            callback(err, task);
         });
     });
 }
@@ -49,7 +78,7 @@ app.use(multer());
 
 app.use(express.static(__dirname + '/../public'));
 
-app.put('/tasks', function (req, res) {
+app.post('/tasks', function (req, res) {
     create(req.body.task, function (err, task) {
         res.send(err ? { error: err } : task);
     });
@@ -61,9 +90,21 @@ app.get('/tasks', function (req, res) {
     });
 });
 
+app.get('/task/:id', function (req, res) {
+    get(req.params.id, function (err, task) {
+        res.send(err ? { error: err } : task);
+    });
+});
+
 app.delete('/task/:id', function (req, res) {
     remove(req.params.id, function (err) {
         res.send(err ? { error: err } : { result: 'success' });
+    });
+});
+
+app.put('/task/:id', function (req, res) {
+    update(req.params.id, req.body, function (err, task) {
+        res.send(err ? { error: err } : task);
     });
 });
 
